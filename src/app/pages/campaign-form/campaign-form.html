@@ -1,0 +1,288 @@
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2>
+                {{ isEditMode ? 'Edit Campaign' : 'Create Campaign' }}
+            </h2>
+
+            <p class="text-muted">
+                Fill in the details below to create a marketing campaign.
+            </p>
+        </div>
+
+        <button
+            class="btn btn-secondary"
+            (click)="cancel()">
+
+            Back
+
+        </button>
+
+    </div>
+
+    <form
+        [formGroup]="campaignForm"
+        (ngSubmit)="saveCampaign()">
+
+        <!-- Campaign Information -->
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+                    Campaign Information
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Campaign Name
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="campaignName">
+
+                    <small
+                        class="text-danger"
+                        *ngIf="f['campaignName'].touched && f['campaignName'].invalid">
+
+                        Campaign Name is required
+
+                    </small>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Campaign Objective
+                    </label>
+
+                    <textarea
+                        rows="3"
+                        class="form-control"
+                        formControlName="objective">
+                    </textarea>
+
+                    <small
+                        class="text-danger"
+                        *ngIf="f['objective'].touched && f['objective'].invalid">
+
+                        Objective is required
+
+                    </small>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Audience
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="audience">
+
+                            <option>Doctors</option>
+
+                            <option>Patients</option>
+
+                            <option>Students</option>
+
+                            <option>Researchers</option>
+
+                            <option>Healthcare Professionals</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+                            Status
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="status">
+
+                            <option>Draft</option>
+
+                            <option>Published</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Email Information -->
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h5 class="mb-0">
+
+                        Email Information
+
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-primary btn-sm"
+                        routerLink="/ai-generator">
+
+                        ✨ Generate with AI
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Subject Line
+
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="subject">
+
+                    <small
+                        class="text-danger"
+                        *ngIf="f['subject'].touched && f['subject'].invalid">
+
+                        Subject is required
+
+                    </small>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Preview Text
+
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="previewText">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Email Content
+
+                    </label>
+
+                    <textarea
+                        rows="8"
+                        class="form-control"
+                        formControlName="emailContent">
+                    </textarea>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            CTA Button Text
+
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="ctaButton">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <label class="form-label">
+
+                            CTA URL
+
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="ctaUrl">
+
+                        <small
+                            class="text-danger"
+                            *ngIf="f['ctaUrl'].touched && f['ctaUrl'].invalid">
+
+                            Enter a valid URL
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-4 d-flex justify-content-end gap-2">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="cancel()">
+
+                Cancel
+
+            </button>
+
+            <button
+                type="submit"
+                class="btn btn-primary">
+
+                {{ isEditMode ? 'Update Campaign' : 'Create Campaign' }}
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,143 @@
+<div class="container-fluid">
+
+    <!-- Header -->
+
+    <div class="top-section">
+
+        <div>
+
+            <h2>Campaign Management</h2>
+
+            <p>Manage all your marketing campaigns.</p>
+
+        </div>
+
+        <button
+            class="btn btn-primary"
+            (click)="createCampaign()">
+
+            + New Campaign
+
+        </button>
+
+    </div>
+
+    <!-- Filters -->
+
+    <div class="filters">
+
+        <input
+            class="form-control"
+            placeholder="🔍 Search Campaign..."
+            [(ngModel)]="searchText">
+
+        <select
+            class="form-select"
+            [(ngModel)]="selectedStatus">
+
+            <option>All</option>
+            <option>Published</option>
+            <option>Draft</option>
+
+        </select>
+
+    </div>
+
+    <!-- Campaign Cards -->
+
+    <div class="row">
+            
+        <div
+            class="col-xl-4 col-lg-4 col-md-6 mb-4 d-flex"
+            *ngFor="let campaign of filteredCampaigns">
+
+            <div class="campaign-card w-100">
+
+                <div class="card-header-custom">
+
+                    <h5 class="campaign-title">
+
+                        {{ campaign.campaignName }}
+
+                    </h5>
+
+                    <span
+                        class="badge"
+                        [ngClass]="{
+                            'bg-success': campaign.status=='Published',
+                            'bg-warning text-dark': campaign.status=='Draft'
+                        }">
+
+                        {{ campaign.status }}
+
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>
+
+                        <strong>Audience</strong><br>
+
+                        {{ campaign.audience }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Subject</strong><br>
+
+                        {{ campaign.subject }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Last Updated</strong><br>
+
+                        {{ campaign.updatedAt | date:'mediumDate' }}
+
+                    </p>
+
+                </div>
+
+                <div class="buttons">
+
+                    <button
+                        class="btn btn-outline-primary"
+                        (click)="editCampaign(campaign._id!)">
+
+                        Edit
+
+                    </button>
+
+                    <button
+                        class="btn btn-outline-danger"
+                        (click)="deleteCampaign(campaign._id!)">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Empty State -->
+
+    <div
+        class="empty-state"
+        *ngIf="filteredCampaigns.length==0">
+
+        <h3>📭 No Campaigns Found</h3>
+
+        <p>Create your first campaign.</p>
+
+    </div>
+
+</div>
