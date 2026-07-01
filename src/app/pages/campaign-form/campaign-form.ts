@@ -41,6 +41,28 @@ export class CampaignForm implements OnInit {
 
     this.createForm();
 
+    const generated = localStorage.getItem("generatedCampaign");
+
+if (generated) {
+
+  const data = JSON.parse(generated);
+
+  this.campaignForm.patchValue({
+
+    subject: data.subject,
+
+    previewText: data.previewText,
+
+    emailContent: data.emailContent,
+
+    ctaButton: data.ctaSuggestion
+
+  });
+
+  localStorage.removeItem("generatedCampaign");
+
+}
+
     this.route.paramMap.subscribe(params => {
 
       const id = params.get('id');

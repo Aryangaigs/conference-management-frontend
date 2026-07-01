@@ -1,0 +1,63 @@
+.container{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    padding:30px;
+
+}
+
+.card{
+
+    padding:25px;
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    margin-top:20px;
+
+}
+
+label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.form-control{
+
+    border-radius:10px;
+
+}
+
+button{
+
+    margin-top:10px;
+
+}
+
+textarea{
+
+    resize:none;
+
+}
+
+.spinner-border{
+
+    width:60px;
+
+    height:60px;
+
+}
+
+h2{
+
+    font-weight:bold;
+
+}

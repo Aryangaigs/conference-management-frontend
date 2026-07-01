@@ -1,1 +1,225 @@
-<p>ai-generator works!</p>
+<div class="container">
+
+    <h2 class="mb-4">
+        ✨ AI Email Generator
+    </h2>
+
+    <form
+        [formGroup]="aiForm"
+        (ngSubmit)="generateEmail()">
+
+        <div class="card">
+
+            <h4 class="mb-4">
+                Campaign Details
+            </h4>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Campaign Objective
+                </label>
+
+                <textarea
+                    class="form-control"
+                    rows="4"
+                    formControlName="objective"
+                    placeholder="Example: Promote an upcoming Women's Health CME Webinar">
+                </textarea>
+
+                <small
+                    class="text-danger"
+                    *ngIf="aiForm.get('objective')?.touched && aiForm.get('objective')?.invalid">
+
+                    Campaign Objective is required.
+
+                </small>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Target Audience
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="audience"
+                    placeholder="Example: OBGYN Doctors">
+
+                <small
+                    class="text-danger"
+                    *ngIf="aiForm.get('audience')?.touched && aiForm.get('audience')?.invalid">
+
+                    Target Audience is required.
+
+                </small>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Call To Action (CTA)
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="cta"
+                    placeholder="Example: Register Now">
+
+                <small
+                    class="text-danger"
+                    *ngIf="aiForm.get('cta')?.touched && aiForm.get('cta')?.invalid">
+
+                    CTA is required.
+
+                </small>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="loading()">
+
+                <span *ngIf="!loading()">
+
+                    ✨ Generate Email
+
+                </span>
+
+                <span *ngIf="loading()">
+
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+
+                    Generating...
+
+                </span>
+
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- Loading -->
+
+    <div
+        class="text-center mt-5"
+        *ngIf="loading()">
+
+        <div
+            class="spinner-border text-primary"
+            role="status">
+
+        </div>
+
+        <p class="mt-3">
+
+            AI is generating your email...
+
+        </p>
+
+    </div>
+
+    <!-- Generated Email -->
+
+    <div
+        class="card mt-4"
+        *ngIf="generatedData()">
+
+        <h3 class="mb-4">
+
+            Generated Email
+
+        </h3>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Subject Line
+
+            </label>
+
+            <input
+                class="form-control"
+                [value]="generatedData()?.subject"
+                readonly>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Preview Text
+
+            </label>
+
+            <textarea
+                rows="2"
+                class="form-control"
+                readonly>{{generatedData()?.previewText}}</textarea>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Email Content
+
+            </label>
+
+            <textarea
+                rows="12"
+                class="form-control"
+                readonly>{{generatedData()?.emailContent}}</textarea>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                CTA Suggestion
+
+            </label>
+
+            <input
+                class="form-control"
+                [value]="generatedData()?.ctaSuggestion"
+                readonly>
+
+        </div>
+
+        <div class="d-flex gap-3">
+
+            <button
+class="btn btn-success flex-fill"
+type="button"
+(click)="copyEmail()">
+
+📋 Copy Email
+
+</button>
+
+            <button
+class="btn btn-primary flex-fill"
+type="button"
+(click)="useInCampaign()">
+
+➜ Use in Campaign
+
+</button>
+
+        </div>
+
+    </div>
+
+</div>
