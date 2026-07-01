@@ -1,1 +1,413 @@
-<p>journey-builder works!</p>
+<div class="container-fluid">
+
+    <!-- Header -->
+
+    <div class="top-section">
+
+        <div>
+
+            <h2>Journey Builder</h2>
+
+            <p>Create and manage customer journeys.</p>
+
+        </div>
+
+    </div>
+
+    <!-- Journey Form -->
+
+    <div class="card shadow-sm mb-5">
+
+        <div class="card-header">
+
+            <h4>
+
+                {{ isEditMode ? 'Edit Journey' : 'Create Journey' }}
+
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <form
+                [formGroup]="journeyForm"
+                (ngSubmit)="saveJourney()">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Journey Name
+
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="journeyName">
+
+                        <small
+                            class="text-danger"
+                            *ngIf="f['journeyName'].touched && f['journeyName'].invalid">
+
+                            Journey Name is required.
+
+                        </small>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Campaign
+
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="campaign">
+
+                        <small
+                            class="text-danger"
+                            *ngIf="f['campaign'].touched && f['campaign'].invalid">
+
+                            Campaign is required.
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Trigger
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="trigger">
+
+                            <option>Immediately</option>
+
+                            <option>Scheduled</option>
+
+                            <option>Manual</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Wait (Days)
+
+                        </label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            formControlName="waitDays">
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Condition
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="condition">
+
+                            <option>Email Opened</option>
+
+                            <option>Email Not Opened</option>
+
+                            <option>CTA Clicked</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            Status
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="status">
+
+                            <option>Active</option>
+
+                            <option>Inactive</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            YES Action
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="yesAction">
+
+                            <option>Send Reminder</option>
+
+                            <option>Send Thank You Email</option>
+
+                            <option>End Journey</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+
+                            NO Action
+
+                        </label>
+
+                        <select
+                            class="form-select"
+                            formControlName="noAction">
+
+                            <option>Send Follow-up</option>
+
+                            <option>Send Reminder</option>
+
+                            <option>End Journey</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-3">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        (click)="resetForm()">
+
+                        Reset
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        {{ isEditMode ? 'Update Journey' : 'Create Journey' }}
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Loading -->
+
+    <div
+        class="text-center my-5"
+        *ngIf="loading()">
+
+        <div
+            class="spinner-border text-primary"
+            role="status">
+
+        </div>
+
+        <p class="mt-3">
+
+            Loading journeys...
+
+        </p>
+
+    </div>
+
+    <!-- Journey Cards -->
+
+    <div
+        class="row"
+        *ngIf="!loading()">
+
+        <div
+            class="col-lg-4 col-md-6 mb-4 d-flex"
+            *ngFor="let journey of journeys()">
+
+            <div class="journey-card w-100">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h5>
+
+                        {{ journey.journeyName }}
+
+                    </h5>
+
+                    <span
+                        class="badge"
+                        [ngClass]="{
+
+                        'bg-success': journey.status=='Active',
+
+                        'bg-secondary': journey.status=='Inactive'
+
+                    }">
+
+                        {{ journey.status }}
+
+                    </span>
+
+                </div>
+
+                <hr>
+
+                <p>
+
+                    <strong>Campaign</strong>
+
+                    <br>
+
+                    {{ journey.campaign }}
+
+                </p>
+
+                <p>
+
+                    <strong>Trigger</strong>
+
+                    <br>
+
+                    {{ journey.trigger }}
+
+                </p>
+
+                <p>
+
+                    <strong>Wait</strong>
+
+                    <br>
+
+                    {{ journey.waitDays }} Day(s)
+
+                </p>
+
+                <p>
+
+                    <strong>Condition</strong>
+
+                    <br>
+
+                    {{ journey.condition }}
+
+                </p>
+
+                <p>
+
+                    <strong>YES Action</strong>
+
+                    <br>
+
+                    {{ journey.yesAction }}
+
+                </p>
+
+                <p>
+
+                    <strong>NO Action</strong>
+
+                    <br>
+
+                    {{ journey.noAction }}
+
+                </p>
+
+                <div class="d-flex gap-2 mt-auto">
+
+                    <button
+                        class="btn btn-outline-primary flex-fill"
+                        (click)="editJourney(journey)">
+
+                        Edit
+
+                    </button>
+
+                    <button
+                        class="btn btn-outline-danger flex-fill"
+                        (click)="deleteJourney(journey._id!)">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Empty State -->
+
+    <div
+        class="text-center mt-5"
+        *ngIf="!loading() && journeys().length === 0">
+
+        <h4>
+
+            No Journeys Found
+
+        </h4>
+
+        <p>
+
+            Create your first journey.
+
+        </p>
+
+    </div>
+
+</div>
