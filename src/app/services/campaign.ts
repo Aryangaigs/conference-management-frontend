@@ -8,7 +8,7 @@ import { Campaign } from '../models/campaign';
 })
 export class CampaignService {
 
-  private apiUrl = 'http://localhost:8000/api/campaigns';
+  private apiUrl = 'https://conference-management-backend-rjzd.onrender.com/api/campaigns';
 
   constructor(private http: HttpClient) {}
 

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AiService {
 
-  private apiUrl = "http://localhost:8000/api/ai";
+  private apiUrl = "https://conference-management-backend-rjzd.onrender.com/api/ai";
 
   constructor(private http: HttpClient) {}
 

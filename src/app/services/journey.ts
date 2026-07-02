@@ -11,7 +11,7 @@ import { Journey } from '../models/journey';
 })
 export class JourneyService {
 
-  private apiUrl = "http://localhost:8000/api/journeys";
+  private apiUrl = "https://conference-management-backend-rjzd.onrender.com/api/journeys";
 
   constructor(
     private http: HttpClient
